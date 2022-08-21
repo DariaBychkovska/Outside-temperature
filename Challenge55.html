@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Geolocation API</title>
+  </head>
+  <body>
+    <h1 id="temp">Geolocation API</h1>
+
+    <script>
+      function showPosition(position) {
+        console.log(position.coords.latitude);
+        console.log(position.coords.longitude);
+      }
+
+      navigator.geolocation.getCurrentPosition(showPosition);
+
+      function showTemperature(response) {
+        console.log(response.data.main.temp);
+        let temperature = Math.round(response.data.main.temp);
+        let temperatureInSydney = document.querySelector("#temp");
+        temperatureInSydney.innerHTML = `The outside temperature is ${temperature} degrees`;
+      }
+      let apiKey = "77d3d633b9876eac8a61018dc1263fb7";
+
+      let apiUrl =
+        "https://api.openweathermap.org/data/2.5/weather?lat=50.2777582&lon=30.5276679&appid=77d3d633b9876eac8a61018dc1263fb7&units=metric";
+      axios.get(apiUrl).then(showTemperature);
+    </script>
+  </body>
+</html>
